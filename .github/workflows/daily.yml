@@ -1,20 +1,19 @@
 name: Daily Commit Workflow
 
-permissions:
-  contents: write
-
 on:
   schedule:
     - cron: '0 2 * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: 23f3001390@ds.study.iitm.ac.in - Make daily commit
         run: |
@@ -22,5 +21,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "23f3001390@ds.study.iitm.ac.in"
           git add daily-log.txt
-          git commit -m "Automated daily commit"
+          git commit -m "Automated daily commit" || echo "No changes to commit"
           git push
